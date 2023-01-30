@@ -49,6 +49,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: WebView(
         initialUrl: 'https://flutter.dev',
+        javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (controller) {
           _webViewController = controller;
         },
