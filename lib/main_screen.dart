@@ -17,18 +17,20 @@ class _MainScreenState extends State<MainScreen> {
     if (Platform.isAndroid) WebView.platform = AndroidWebView();
   }
 
+  late WebViewController _webViewController;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('main'),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
           PopupMenuButton<String>(
             onSelected: (value) {
-              print(value);
+              _webViewController.loadUrl(value);
             },
-            itemBuilder: (context) => [
+            itemBuilder: (context) => const [
               PopupMenuItem<String>(
                 value: 'https://google.com',
                 child: Text('구글'),
@@ -47,6 +49,9 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: WebView(
         initialUrl: 'https://flutter.dev',
+        onWebViewCreated: (controller) {
+          _webViewController = controller;
+        },
       ),
     );
   }
